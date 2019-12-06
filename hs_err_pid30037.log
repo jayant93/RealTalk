@@ -1,0 +1,305 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0x00007ff5156ec570, pid=30037, tid=30055
+#
+# JRE version:  (13.0+33) (build )
+# Java VM: OpenJDK 64-Bit Server VM (13+33, mixed mode, aot, sharing, tiered, compressed oops, g1 gc, linux-amd64)
+# Problematic frame:
+# V  [libjvm.so+0x80b570]  vm_init_globals()+0x0
+#
+# No core dump will be written. Core dumps have been disabled. To enable core dumping, try "ulimit -c unlimited" before starting Java again
+#
+# If you would like to submit a bug report, please visit:
+#   http://bugreport.java.com/bugreport/crash.jsp
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -Dclassworlds.conf=/usr/share/maven/bin/m2.conf -Dmaven.home=/usr/share/maven -Dlibrary.jansi.path=/usr/share/maven/lib/jansi-native -Dmaven.multiModuleProjectDirectory=/home/jayant/Documents/bot org.codehaus.plexus.classworlds.launcher.Launcher clean heroku:deploy
+
+Host: Intel(R) Core(TM) i3-4030U CPU @ 1.90GHz, 4 cores, 7G, elementary OS 5.0 Juno
+Time: Fri Dec  6 18:58:47 2019 IST elapsed time: 0 seconds (0d 0h 0m 0s)
+
+---------------  T H R E A D  ---------------
+
+Current thread is native thread
+
+Stack: [0x00007ff516c69000,0x00007ff516d6a000],  sp=0x00007ff516d68bf8,  free space=1022k
+Native frames: (J=compiled Java code, A=aot compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [libjvm.so+0x80b570]  vm_init_globals()+0x0
+V  [libjvm.so+0x8b48f2]  JNI_CreateJavaVM+0x52
+C  [libjli.so+0x399f]  JavaMain+0x7f
+C  [libjli.so+0x8669]  ThreadJavaMain+0x9
+
+
+siginfo: si_signo: 11 (SIGSEGV), si_code: 1 (SEGV_MAPERR), si_addr: 0x0000000000000000
+
+Registers:
+RAX=0x00007ff5160c60e0, RBX=0x00007ff516d68c20, RCX=0x00007ff516260ae7, RDX=0x0000000000000001
+RSP=0x00007ff516d68bf8, RBP=0x00007ff516d68dc0, RSI=0x0000000000001000, RDI=0x0000000000000000
+R8 =0x0000000000000001, R9 =0x0000000000000000, R10=0x0000000000000032, R11=0x0000000000000206
+R12=0x00007ff516d68e90, R13=0x00007ff516d68c40, R14=0x00007ff516d68dd7, R15=0x0000000000000000
+RIP=0x00007ff5156ec570, EFLAGS=0x0000000000010246, CSGSFS=0x002b000000000033, ERR=0x0000000000000004
+  TRAPNO=0x000000000000000e
+
+Top of Stack: (sp=0x00007ff516d68bf8)
+0x00007ff516d68bf8:   00007ff515c5072b 0000000000000000
+0x00007ff516d68c08:   0000000000000000 0000000000000000
+0x00007ff516d68c18:   0000000000000000 0000000000000001
+0x00007ff516d68c28:   0000016edb660686 00007ff516531560 
+
+Instructions: (pc=0x00007ff5156ec570)
+0x00007ff5156ec470:   b1 05 5c 26 ad 20 00 00 b1 05 5c 26 ad 20 00 00
+0x00007ff5156ec480:   b1 05 5c 26 ad 20 00 00 b1 05 5c 26 ad 20 00 00
+0x00007ff5156ec490:   b1 05 5c 26 ad 20 00 00 b1 05 5c 26 ad 20 00 00
+0x00007ff5156ec4a0:   b1 05 5c 26 ad 20 00 00 b1 05 5c 26 ad 20 00 00
+0x00007ff5156ec4b0:   b1 05 5c 26 ad 20 00 00 31 0a 5c 26 ad 20 00 00
+0x00007ff5156ec4c0:   00 00 00 00 07 00 00 00 91 70 48 e5 c9 31 00 00
+0x00007ff5156ec4d0:   81 94 10 1b 42 2a 00 00 b1 05 5c 26 ad 20 00 00
+0x00007ff5156ec4e0:   29 20 24 00 b4 32 00 00 d1 04 5c 26 ad 20 00 00
+0x00007ff5156ec4f0:   19 55 f3 9b 2a 23 00 00 a9 f7 6b d5 dd 1b 00 00
+0x00007ff5156ec500:   b1 07 5c 26 ad 20 00 00 00 00 00 00 01 00 00 00
+0x00007ff5156ec510:   01 54 f3 9b 2a 23 00 00 69 21 64 57 c2 28 00 00
+0x00007ff5156ec520:   21 0c 5c 26 ad 20 00 00 01 55 f3 9b 2a 23 00 00
+0x00007ff5156ec530:   00 00 00 00 01 00 00 00 a9 b2 51 13 c1 38 00 00
+0x00007ff5156ec540:   21 0c 5c 26 ad 20 00 00 21 0c 5c 26 ad 20 00 00
+0x00007ff5156ec550:   f9 bb 0f 87 32 00 00 00 71 56 f3 9b 2a 23 00 00
+0x00007ff5156ec560:   d9 4e 5c 26 ad 20 00 00 21 c6 fa 13 5e 37 00 00
+0x00007ff5156ec570:   39 1f 64 57 c2 28 00 00 21 0c 5c 26 ad 20 00 00
+0x00007ff5156ec580:   21 0c 5c 26 ad 20 00 00 00 00 00 00 00 00 00 00
+0x00007ff5156ec590:   b1 07 5c 26 ad 20 00 00 00 00 00 00 01 00 00 00
+0x00007ff5156ec5a0:   a9 f7 6b d5 dd 1b 00 00 69 21 64 57 c2 28 00 00
+0x00007ff5156ec5b0:   21 0c 5c 26 ad 20 00 00 91 55 f3 9b 2a 23 00 00
+0x00007ff5156ec5c0:   00 00 00 00 01 00 00 00 69 21 64 57 c2 28 00 00
+0x00007ff5156ec5d0:   21 0c 5c 26 ad 20 00 00 21 56 f3 9b 2a 23 00 00
+0x00007ff5156ec5e0:   00 00 00 00 01 00 00 00 b1 07 5c 26 ad 20 00 00
+0x00007ff5156ec5f0:   00 00 00 00 02 00 00 00 f9 bb 0f 87 32 00 00 00
+0x00007ff5156ec600:   f1 58 e3 47 8b 15 00 00 f9 1e 5c 26 ad 20 00 00
+0x00007ff5156ec610:   5a f2 fb 1f 05 00 00 00 a9 f7 6b d5 dd 1b 00 00
+0x00007ff5156ec620:   b1 07 5c 26 ad 20 00 00 00 00 00 00 02 00 00 00
+0x00007ff5156ec630:   f9 bb 0f 87 32 00 00 00 b1 05 5c 26 ad 20 00 00
+0x00007ff5156ec640:   b1 07 5c 26 ad 20 00 00 00 00 00 00 01 00 00 00
+0x00007ff5156ec650:   f9 bb 0f 87 32 00 00 00 b1 07 5c 26 ad 20 00 00
+0x00007ff5156ec660:   00 00 00 00 01 00 00 00 f9 bb 0f 87 32 00 00 00 
+
+
+
+---------------  P R O C E S S  ---------------
+
+VM state:not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+
+[error occurred during error reporting (printing compressed oops mode), id 0xb, SIGSEGV (0xb) at pc=0x00007ff5154e33a6]
+
+
+Dynamic libraries:
+00400000-00401000 r-xp 00000000 08:12 2891088                            /opt/jdk-13/bin/java
+00401000-00402000 r--p 00000000 08:12 2891088                            /opt/jdk-13/bin/java
+00402000-00403000 rw-p 00001000 08:12 2891088                            /opt/jdk-13/bin/java
+01b7a000-01b9b000 rw-p 00000000 00:00 0                                  [heap]
+7ff510000000-7ff510021000 rw-p 00000000 00:00 0 
+7ff510021000-7ff514000000 ---p 00000000 00:00 0 
+7ff514571000-7ff51493b000 rw-p 00000000 00:00 0 
+7ff51493b000-7ff514942000 r-xp 00000000 08:12 9704232                    /lib/x86_64-linux-gnu/librt-2.27.so
+7ff514942000-7ff514b41000 ---p 00007000 08:12 9704232                    /lib/x86_64-linux-gnu/librt-2.27.so
+7ff514b41000-7ff514b42000 r--p 00006000 08:12 9704232                    /lib/x86_64-linux-gnu/librt-2.27.so
+7ff514b42000-7ff514b43000 rw-p 00007000 08:12 9704232                    /lib/x86_64-linux-gnu/librt-2.27.so
+7ff514b43000-7ff514ce0000 r-xp 00000000 08:12 9704155                    /lib/x86_64-linux-gnu/libm-2.27.so
+7ff514ce0000-7ff514edf000 ---p 0019d000 08:12 9704155                    /lib/x86_64-linux-gnu/libm-2.27.so
+7ff514edf000-7ff514ee0000 r--p 0019c000 08:12 9704155                    /lib/x86_64-linux-gnu/libm-2.27.so
+7ff514ee0000-7ff514ee1000 rw-p 0019d000 08:12 9704155                    /lib/x86_64-linux-gnu/libm-2.27.so
+7ff514ee1000-7ff515fc2000 r-xp 00000000 08:12 3677182                    /opt/jdk-13/lib/server/libjvm.so
+7ff515fc2000-7ff516086000 r--p 010e0000 08:12 3677182                    /opt/jdk-13/lib/server/libjvm.so
+7ff516086000-7ff5160c0000 rw-p 011a4000 08:12 3677182                    /opt/jdk-13/lib/server/libjvm.so
+7ff5160c0000-7ff516145000 rw-p 00000000 00:00 0 
+7ff516145000-7ff51632c000 r-xp 00000000 08:12 9704092                    /lib/x86_64-linux-gnu/libc-2.27.so
+7ff51632c000-7ff51652c000 ---p 001e7000 08:12 9704092                    /lib/x86_64-linux-gnu/libc-2.27.so
+7ff51652c000-7ff516530000 r--p 001e7000 08:12 9704092                    /lib/x86_64-linux-gnu/libc-2.27.so
+7ff516530000-7ff516532000 rw-p 001eb000 08:12 9704092                    /lib/x86_64-linux-gnu/libc-2.27.so
+7ff516532000-7ff516536000 rw-p 00000000 00:00 0 
+7ff516536000-7ff516539000 r-xp 00000000 08:12 9704115                    /lib/x86_64-linux-gnu/libdl-2.27.so
+7ff516539000-7ff516738000 ---p 00003000 08:12 9704115                    /lib/x86_64-linux-gnu/libdl-2.27.so
+7ff516738000-7ff516739000 r--p 00002000 08:12 9704115                    /lib/x86_64-linux-gnu/libdl-2.27.so
+7ff516739000-7ff51673a000 rw-p 00003000 08:12 9704115                    /lib/x86_64-linux-gnu/libdl-2.27.so
+7ff51673a000-7ff516754000 r-xp 00000000 08:12 9704224                    /lib/x86_64-linux-gnu/libpthread-2.27.so
+7ff516754000-7ff516953000 ---p 0001a000 08:12 9704224                    /lib/x86_64-linux-gnu/libpthread-2.27.so
+7ff516953000-7ff516954000 r--p 00019000 08:12 9704224                    /lib/x86_64-linux-gnu/libpthread-2.27.so
+7ff516954000-7ff516955000 rw-p 0001a000 08:12 9704224                    /lib/x86_64-linux-gnu/libpthread-2.27.so
+7ff516955000-7ff516959000 rw-p 00000000 00:00 0 
+7ff516959000-7ff516975000 r-xp 00000000 08:12 9704263                    /lib/x86_64-linux-gnu/libz.so.1.2.11
+7ff516975000-7ff516b74000 ---p 0001c000 08:12 9704263                    /lib/x86_64-linux-gnu/libz.so.1.2.11
+7ff516b74000-7ff516b75000 r--p 0001b000 08:12 9704263                    /lib/x86_64-linux-gnu/libz.so.1.2.11
+7ff516b75000-7ff516b76000 rw-p 0001c000 08:12 9704263                    /lib/x86_64-linux-gnu/libz.so.1.2.11
+7ff516b76000-7ff516b9d000 r-xp 00000000 08:12 9704064                    /lib/x86_64-linux-gnu/ld-2.27.so
+7ff516c3f000-7ff516c66000 r-xp 00000000 08:12 3155083                    /opt/jdk-13/lib/libjava.so
+7ff516c66000-7ff516c67000 r--p 00026000 08:12 3155083                    /opt/jdk-13/lib/libjava.so
+7ff516c67000-7ff516c69000 rw-p 00027000 08:12 3155083                    /opt/jdk-13/lib/libjava.so
+7ff516c69000-7ff516d6c000 rw-p 00000000 00:00 0 
+7ff516d6c000-7ff516d7b000 r-xp 00000000 08:12 3155088                    /opt/jdk-13/lib/libjli.so
+7ff516d7b000-7ff516d7c000 r--p 0000e000 08:12 3155088                    /opt/jdk-13/lib/libjli.so
+7ff516d7c000-7ff516d7d000 rw-p 0000f000 08:12 3155088                    /opt/jdk-13/lib/libjli.so
+7ff516d7d000-7ff516d7f000 rw-p 00000000 00:00 0 
+7ff516d85000-7ff516d86000 ---p 00000000 00:00 0 
+7ff516d86000-7ff516d87000 r--p 00000000 00:00 0 
+7ff516d87000-7ff516d88000 ---p 00000000 00:00 0 
+7ff516d88000-7ff516d95000 r-xp 00000000 08:12 3155105                    /opt/jdk-13/lib/libverify.so
+7ff516d95000-7ff516d97000 r--p 0000c000 08:12 3155105                    /opt/jdk-13/lib/libverify.so
+7ff516d97000-7ff516d98000 rw-p 0000e000 08:12 3155105                    /opt/jdk-13/lib/libverify.so
+7ff516d98000-7ff516d9b000 r--p 00000000 00:00 0                          [vvar]
+7ff516d9b000-7ff516d9d000 r-xp 00000000 00:00 0                          [vdso]
+7ff516d9d000-7ff516d9e000 r--p 00027000 08:12 9704064                    /lib/x86_64-linux-gnu/ld-2.27.so
+7ff516d9e000-7ff516d9f000 rw-p 00028000 08:12 9704064                    /lib/x86_64-linux-gnu/ld-2.27.so
+7ff516d9f000-7ff516da0000 rw-p 00000000 00:00 0 
+7ffdf5bd8000-7ffdf5bfa000 rw-p 00000000 00:00 0                          [stack]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
+
+
+VM Arguments:
+jvm_args: -Dclassworlds.conf=/usr/share/maven/bin/m2.conf -Dmaven.home=/usr/share/maven -Dlibrary.jansi.path=/usr/share/maven/lib/jansi-native -Dmaven.multiModuleProjectDirectory=/home/jayant/Documents/bot 
+java_command: org.codehaus.plexus.classworlds.launcher.Launcher clean heroku:deploy
+java_class_path (initial): /usr/share/maven/boot/plexus-classworlds-2.x.jar
+Launcher Type: SUN_STANDARD
+
+[Global flags]
+     uint G1ConcRefinementThreads                  = 4                                         {product} {ergonomic}
+    uintx GCDrainStackTargetSize                   = 64                                        {product} {ergonomic}
+   size_t InitialHeapSize                          = 128916736                                 {product} {ergonomic}
+   size_t MaxHeapSize                              = 2062667776                                {product} {ergonomic}
+   size_t MinHeapSize                              = 6815736                                   {product} {ergonomic}
+    uintx ReservedCodeCacheSize                    = 251658240                              {pd product} {ergonomic}
+     bool SegmentedCodeCache                       = true                                      {product} {ergonomic}
+     bool UseCompressedClassPointers               = true                                 {lp64_product} {ergonomic}
+     bool UseCompressedOops                        = true                                 {lp64_product} {ergonomic}
+     bool UseG1GC                                  = true                                      {product} {ergonomic}
+
+Logging:
+Log output configuration:
+ #0: stdout all=warning uptime,level,tags
+ #1: stderr all=off uptime,level,tags
+
+Environment Variables:
+JAVA_HOME=/opt/jdk-13
+JRE_HOME=/usr/lib/jvm/java-8-openjdk-amd64/jre/bin
+PATH=/home/jayant/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/jvm/java-8-openjdk-amd64/bin:/usr/lib/jvm/java-8-openjdk-amd64/jre/bin:/snap/bin:/opt/jdk-13/bin:/home/jayant/Documents/DevelopmentFlutter/flutter/bin/flutter
+SHELL=/bin/bash
+DISPLAY=:0
+
+Signal Handlers:
+SIGSEGV: [libjvm.so+0xdd70e0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGBUS: [libjvm.so+0xdd70e0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGFPE: [libjvm.so+0xdd70e0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGPIPE: [libjvm.so+0xbb6030], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGXFSZ: [libjvm.so+0xbb6030], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGILL: [libjvm.so+0xdd70e0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGUSR2: [libjvm.so+0xbb5ec0], sa_mask[0]=00000000000000000000000000000000, sa_flags=SA_RESTART|SA_SIGINFO
+SIGHUP: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+SIGINT: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+SIGTERM: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+SIGQUIT: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+
+
+---------------  S Y S T E M  ---------------
+
+OS:DISTRIB_ID=elementary
+DISTRIB_RELEASE=5.0
+DISTRIB_CODENAME=juno
+DISTRIB_DESCRIPTION="elementary OS 5.0 Juno"
+uname:Linux 4.15.0-70-generic #79-Ubuntu SMP Tue Nov 12 10:36:11 UTC 2019 x86_64
+libc:glibc 2.27 NPTL 2.27 
+rlimit: STACK 8192k, CORE 0k, NPROC 30966, NOFILE 1048576, AS infinity, DATA infinity, FSIZE infinity
+load average:1.70 1.36 1.10
+
+/proc/meminfo:
+MemTotal:        8057296 kB
+MemFree:          673676 kB
+MemAvailable:    1151756 kB
+Buffers:           35228 kB
+Cached:          1219800 kB
+SwapCached:        10816 kB
+Active:          5762988 kB
+Inactive:        1151408 kB
+Active(anon):    5366292 kB
+Inactive(anon):   892156 kB
+Active(file):     396696 kB
+Inactive(file):   259252 kB
+Unevictable:          80 kB
+Mlocked:              80 kB
+SwapTotal:       2097148 kB
+SwapFree:         747484 kB
+Dirty:              1164 kB
+Writeback:             0 kB
+AnonPages:       5652676 kB
+Mapped:           778316 kB
+Shmem:            604620 kB
+Slab:             219920 kB
+SReclaimable:      88460 kB
+SUnreclaim:       131460 kB
+KernelStack:       22968 kB
+PageTables:       111376 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:     6125796 kB
+Committed_AS:   19739192 kB
+VmallocTotal:   34359738367 kB
+VmallocUsed:           0 kB
+VmallocChunk:          0 kB
+HardwareCorrupted:     0 kB
+AnonHugePages:         0 kB
+ShmemHugePages:        0 kB
+ShmemPmdMapped:        0 kB
+CmaTotal:              0 kB
+CmaFree:               0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+DirectMap4k:      490240 kB
+DirectMap2M:     7788544 kB
+DirectMap1G:     1048576 kB
+
+
+/proc/sys/kernel/threads-max (system-wide limit on the number of threads):
+61933
+
+
+/proc/sys/vm/max_map_count (maximum number of memory map areas a process may have):
+65530
+
+
+/proc/sys/kernel/pid_max (system-wide limit on number of process identifiers):
+32768
+
+
+
+container (cgroup) information:
+container_type: cgroupv1
+cpu_cpuset_cpus: 0-3
+cpu_memory_nodes: 0
+active_processor_count: 4
+cpu_quota: no quota
+cpu_period: 100000
+cpu_shares: no shares
+memory_limit_in_bytes: unlimited
+memory_and_swap_limit_in_bytes: not supported
+memory_soft_limit_in_bytes: unlimited
+memory_usage_in_bytes: 7058251776
+memory_max_usage_in_bytes: 7688941568
+
+Steal ticks since vm start: 0
+Steal ticks percentage since vm start:  0.000
+
+CPU:total 4 (initial active 4) 
+CPU Model and flags from /proc/cpuinfo:
+model name	: Intel(R) Core(TM) i3-4030U CPU @ 1.90GHz
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm cpuid_fault epb invpcid_single pti ssbd ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid xsaveopt dtherm arat pln pts md_clear flush_l1d
+
+Memory: 4k page, physical 8057296k(673676k free), swap 2097148k(747484k free)
+
+vm_info: OpenJDK 64-Bit Server VM (13+33) for linux-amd64 JRE (13+33), built on Aug  9 2019 10:12:33 by "mach5one" with gcc 8.2.0
+
+END.
