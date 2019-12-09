@@ -43,19 +43,22 @@ public class BotApplication implements CommandLineRunner {
 			query.setQuestion("What is your Team Name ?");
 		query.setQuestionType("Authentication");
 		questionsList.add(query);
-			query = new Questions();
-			query.setQuestion("what is your Team ID ?");
-		query.setQuestionType("Authentication");
-		questionsList.add(query);
-			query = new Questions();
-			query.setQuestion("What is your User ID ?");
-		query.setQuestionType("Authentication");
-		questionsList.add(query);
+//			query = new Questions();
+//			query.setQuestion("what is your Team ID ?");
+//		query.setQuestionType("Authentication");
+//		questionsList.add(query);
+//			query = new Questions();
+//			query.setQuestion("What is your User ID ?");
+//		query.setQuestionType("Authentication");
+//		questionsList.add(query);
 			query = new Questions();
 			query.setQuestion("What is your TimeZone ?");
 		query.setQuestionType("Authentication");
 		questionsList.add(query);
-
+		query = new Questions();
+		query.setQuestion("What month did you start at your company (MM/DD/YY) ?");
+		query.setQuestionType("Authentication");
+		questionsList.add(query);
 		Qrepo.saveAll(questionsList);
 
 
