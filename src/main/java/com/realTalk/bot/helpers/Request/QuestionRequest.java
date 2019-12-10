@@ -8,6 +8,16 @@ public class QuestionRequest {
 
     private List<AnswersRequest> Answers;
 
+    private String validationType;
+
+    public String getValidationType() {
+        return validationType;
+    }
+
+    public void setValidationType(String validationType) {
+        this.validationType = validationType;
+    }
+
     public String getQuestion() {
         return Question;
     }

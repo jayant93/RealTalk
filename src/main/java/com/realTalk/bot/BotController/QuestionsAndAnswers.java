@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController("/Questions")
 public class QuestionsAndAnswers {
 
@@ -16,7 +18,7 @@ public class QuestionsAndAnswers {
     QuestionsAndAnswersService service;
 
     @GetMapping
-    public ResponseEntity<CustomResponse> createQuestions(@RequestBody QuestionRequest request){
+    public ResponseEntity<CustomResponse> createQuestions(@RequestBody List<QuestionRequest> request){
 
           return service.addQuestionAndAnswers(request);
 
