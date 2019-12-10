@@ -34,14 +34,17 @@ public class BotApplication implements CommandLineRunner {
 		Questions query = new Questions();
 			query.setQuestion("What is your Full Name ?");
 			query.setQuestionType("Authentication");
+			query.setValidationType("none");
 			questionsList.add(query);
 			query = new Questions();
 			query.setQuestion("What is your Email ?");
 			query.setQuestionType("Authentication");
+		query.setValidationType("none");
 			questionsList.add(query);
 			query = new Questions();
 			query.setQuestion("What is your Team Name ?");
-		query.setQuestionType("Authentication");
+			query.setQuestionType("Authentication");
+		query.setValidationType("none");
 		questionsList.add(query);
 //			query = new Questions();
 //			query.setQuestion("what is your Team ID ?");
@@ -54,10 +57,12 @@ public class BotApplication implements CommandLineRunner {
 			query = new Questions();
 			query.setQuestion("What is your TimeZone ?");
 		query.setQuestionType("Authentication");
+		query.setValidationType("none");
 		questionsList.add(query);
 		query = new Questions();
 		query.setQuestion("What month did you start at your company (MM/DD/YY) ?");
 		query.setQuestionType("Authentication");
+		query.setValidationType("DateValidation");
 		questionsList.add(query);
 		Qrepo.saveAll(questionsList);
 

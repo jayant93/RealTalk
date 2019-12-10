@@ -3,11 +3,9 @@ package com.realTalk.bot.BotController;
 
 
 import com.realTalk.bot.Model.Questions;
-import com.realTalk.bot.Model.UserQueryInfo;
 import com.realTalk.bot.Service.QuestionsAndAnswersService;
 import com.realTalk.bot.Service.UserInfoManipulationService;
 import com.realTalk.bot.Utilities.DateValidatorUsingDateFormat;
-import com.realTalk.bot.helpers.staticHelpers.TempUserInfo;
 import me.ramswaroop.jbot.core.slack.Bot;
 import me.ramswaroop.jbot.core.slack.Controller;
 import me.ramswaroop.jbot.core.slack.EventType;
@@ -19,8 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.WebSocketSession;
-
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -45,7 +42,9 @@ public class SlackBot extends Bot {
         return this;
     }
 
-    List<Questions> questions = new ArrayList<>();
+
+
+    List QueryAnswers = new LinkedList();
 
     int count = 0;
 
@@ -59,87 +58,65 @@ public class SlackBot extends Bot {
 
     int invalidDateCount = 0;
 
+    Boolean Validator = false;
+
     @Controller(events = {EventType.DIRECT_MENTION,EventType.DIRECT_MESSAGE})
-    public void onReceiveDM(WebSocketSession session, Event event) {
+    public void onReceiveDM(WebSocketSession session, Event event) throws IllegalAccessException {
 
-        if (event.getText().contains("yes") && count == 0) {
-            AuthProcessStatus = true;
-            questions = QueryService.getAuthQuestions("Authentication");
-            reply(session, event, new Message(questions.get(count).getQuestion()));
-            return;
-        }
-        if (event.getText().contains("no") && count == 0) {
-            //saving name of user
+//Questions saved in db
+        List<Questions> questions = QueryService.getAuthQuestions("Authentication");
+        //Dynamic logic for asking quesions
 
-            questions = QueryService.getAuthQuestions("Authentication");
-            count++;
-            reply(session, event, new Message("Your Account is not confirmed!\nHave a nice day"));
-            return;
-        }
-        if(count == 0 && AuthProcessStatus == true){
-            TempUserInfo.setName(event.getText());
-            logger.info("reply By user : "+event.getText().toString());
-            count++;
-            reply(session, event, new Message(questions.get(count).getQuestion()));
-            return;
-        }
-        if(count == 1 && AuthProcessStatus == true){
-            TempUserInfo.setEmail(event.getText());
-            logger.info("reply By user : "+event.getText().toString());
-            count++;
-            reply(session, event, new Message(questions.get(count).getQuestion()));
-            return;
-        }
-        if(count == 2 && AuthProcessStatus == true){
-            TempUserInfo.setTeamName(event.getText());
-            logger.info("reply By user : "+event.getText().toString());
-            count++;
-            reply(session, event, new Message(questions.get(count).getQuestion()));
-
-            return;
-        }  if(count == 3 && AuthProcessStatus == true){
-            TempUserInfo.setTimeZone(event.getText());
-            logger.info("reply By user : "+event.getText().toString());
-            count++;
-            reply(session, event, new Message(questions.get(count).getQuestion()));
-            return;
-        }  if(count == 4 && AuthProcessStatus == true){
+        if (Validator){
             DateValidatorUsingDateFormat validator = new DateValidatorUsingDateFormat("MM/dd/yyyy");
             //if user enters a valid date
-            if(validator.isValid(event.getText()))
-            {
-                if(invalidDateCount != 3) {
-                    TempUserInfo.setDateStartAtCompany(event.getText());
-                    userInfoManipulationService.saveUserQueryInfoToDB(questions);
-                    logger.info("reply By user : " + event.getText().toString());
-                    reply(session, event, new Message("Thankyou for your precious Time.\nWe will get back back to you with Account confirmation Information.\nHave a nice Day!"));
-                    count = 0;
-                    AuthProcessStatus = false;
-                    return;
-                }
-                else{
-                    reply(session, event, new Message("Thankyou for your precious Time.\nWe will get back back to you with Account confirmation Information.\nHave a nice Day!"));
-                    count = 0;
-                    AuthProcessStatus = false;
-                    return;
-                }
+            if (validator.isValid(event.getText()) || invalidDateCount == 3) {
+                           if( validator.isValid(event.getText())){
+                                   QueryAnswers.add(event.getText());
+                                     }else{
+                                   QueryAnswers.add("");
+                               }
+                           Validator = false;
+                            //reply(session, event, new Message("Thankyou for your precious Time.\nWe will get back back to you with Account confirmation Information.\nHave a nice Day!"));
+                            count++;
+                            onReceiveDM(session,event);
+                            return;
             }
-            else{
-                count = 4;
+            else {
                 invalidDateCount++;
-                    reply(session, event, new Message(" Uh oh, I was expecting you to say something like 11/1/2018. \n Would you try that again please."));
-            return;
+                reply(session, event, new Message(" Uh oh, I was expecting you to say something like 11/1/2018. \n Would you try that again please."));
+                return;
             }
-
-
-        }
-
     }
+            if(AuthProcessStatus == true || event.getText().contains("yes")) {
+                AuthProcessStatus = true;
+                QueryAnswers.add(event.getText());
+                if (count == questions.size()+1) {
+                    reply(session, event, new Message("Thankyou for your precious Time.\nWe will get back back to you with Account confirmation Information.\nHave a nice Day!"));
+                    count = 0;
+                    AuthProcessStatus = false;
+                    Validator = false;
+                    userInfoManipulationService.saveUserQueryInfoToDB(questions, QueryAnswers,Long.valueOf(invalidDateCount));
+                    QueryAnswers = new LinkedList();
+                } else if (count < questions.size()+1) {
+                    if (!questions.get(count).getValidationType().equalsIgnoreCase("DateValidation")) {
+                        reply(session, event, new Message(questions.get(count).getQuestion()));
+                        count++;
+                    } else if (questions.get(count).getValidationType().equalsIgnoreCase("DateValidation")) {
+                        reply(session, event, new Message(questions.get(count).getQuestion()));
+                        Validator = true;
+                        count++;
+                    }
+                  }
+                }
 
-
-    @Controller(events = EventType.MESSAGE)
-    public void onReceiveMessage(WebSocketSession session, Event event) {
-        reply(session, event, new Message("Hi, this is a message!"));
+        //saving name of user
+            if(event.getText().contains("no") && AuthProcessStatus == false) {
+                    questions = QueryService.getAuthQuestions("Authentication");
+                    count++;
+                    reply(session, event, new Message("Your Account is not confirmed!\nHave a nice day"));
+                    return;
+                }
     }
 
 
@@ -151,13 +128,6 @@ public class SlackBot extends Bot {
 
     @Controller(events = EventType.PIN_ADDED)
     public void WelcomeMessage2(WebSocketSession session, Event event) {
-
-//        logger.info("Slack ID : "+event.getUser().getId()+"\n" +
-//                "Username : "+event.getUser().getProfile().getFirstName()+" "+event.getUser().getProfile().getLastName()+"\n" +
-//                "Phone Number : "+event.getUser().getProfile().getPhone());
-
-
-
 
         reply(session, event, new Message("Hi,Welcome to RealTalk for proving your Authentication" +
                 " you have to answer some really simple Questions.Are you ready?" +

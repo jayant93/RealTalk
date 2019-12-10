@@ -14,6 +14,10 @@ public class Questions {
 
     private String QuestionType;
 
+    private String ValidationType;
+
+
+
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "question")
     private  List<Answers> answers;
 
@@ -40,4 +44,13 @@ public class Questions {
     public void setQuestionType(String questionType) {
         QuestionType = questionType;
     }
+
+    public String getValidationType() {
+        return ValidationType;
+    }
+
+    public void setValidationType(String validationType) {
+        ValidationType = validationType;
+    }
+
 }

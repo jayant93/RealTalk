@@ -10,21 +10,23 @@ public class UserQueryInfo {
 
     @Id
     @GeneratedValue
-    private Long UserId;
+    public Long UserId;
 
-    private String name;
+    public String name;
 
-    private String email;
+    public String email;
 
-    private String teamName;
+    public String teamName;
 
-    private String startAtCompany;
+
 
 //    private String teamId;
 //
 //    private String userId;
 
-    private String timeZone;
+    public String timeZone;
+
+    public String startAtCompany;
 
 
     public String getStartAtCompany() {

@@ -24,6 +24,8 @@ public class Answers {
 
     private String givenBy;
 
+    private Long NumberOfIncorrectformats;
+
     @ManyToOne
     private Questions question;
 
@@ -35,7 +37,13 @@ public class Answers {
         this.givenBy = givenBy;
     }
 
+    public Long getNumberOfIncorrectformats() {
+        return NumberOfIncorrectformats;
+    }
 
+    public void setNumberOfIncorrectformats(Long numberOfIncorrectformats) {
+        NumberOfIncorrectformats = numberOfIncorrectformats;
+    }
 
     public String getAnswers() {
         return Answers;
