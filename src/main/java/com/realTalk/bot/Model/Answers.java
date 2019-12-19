@@ -21,6 +21,7 @@ public class Answers {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy hh:mm:ss")
     private LocalDateTime answerGivenAt = LocalDateTime.now();
 
+    private String ScalePoint;
 
     private String givenBy;
 
@@ -43,6 +44,15 @@ public class Answers {
 
     public void setNumberOfIncorrectformats(Long numberOfIncorrectformats) {
         NumberOfIncorrectformats = numberOfIncorrectformats;
+    }
+
+
+    public String getScalePoint() {
+        return ScalePoint;
+    }
+
+    public void setScalePoint(String scalePoint) {
+        ScalePoint = scalePoint;
     }
 
     public String getAnswers() {

@@ -2,6 +2,7 @@ package com.realTalk.bot.Service;
 
 import com.realTalk.bot.Model.Answers;
 import com.realTalk.bot.Model.Questions;
+import com.realTalk.bot.Repositories.AnswersRepository;
 import com.realTalk.bot.Repositories.QuestionsRepository;
 import com.realTalk.bot.helpers.Request.QuestionRequest;
 import com.realTalk.bot.helpers.Response.CustomResponse;
@@ -18,6 +19,9 @@ public class QuestionsAndAnswersService {
 
     @Autowired
     QuestionsRepository QRepo;
+
+    @Autowired
+    AnswersRepository AnswersRepo;
 
     //Lets work on adding some methods to Add Questions and Answers
     public ResponseEntity<CustomResponse> addQuestionAndAnswers(List<QuestionRequest> request){
@@ -56,8 +60,24 @@ public class QuestionsAndAnswersService {
 
     }
 
-    public List<Questions> getAuthQuestions(String QuestionType) {
-        List<Questions> questions = QRepo.findAuthQuestions(QuestionType);
+    public List<Questions> getAuthQuestions() {
+        List<Questions> questions = QRepo.findOnBoardingQuestions();
         return questions;
+    }
+
+    public List<Questions> getPulseQuestion(){
+        return QRepo.findDailyPulseQuestion();
+    }
+
+    public void saveDailyPulseAnswers(Questions activePulseQuestion, List<String> dailyPulseAnswers) {
+
+        Answers answer = new Answers();
+
+            answer.setAnswers(dailyPulseAnswers.get(1));
+            answer.setQuestion(activePulseQuestion);
+            answer.setScalePoint(dailyPulseAnswers.get(0));
+
+        AnswersRepo.save(answer);
+
     }
 }

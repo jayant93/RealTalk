@@ -12,6 +12,8 @@ public class UserQueryInfo {
     @GeneratedValue
     public Long UserId;
 
+    public String slackId;
+
     public String name;
 
     public String email;
@@ -28,6 +30,13 @@ public class UserQueryInfo {
 
     public String startAtCompany;
 
+    public String getSlackId() {
+        return slackId;
+    }
+
+    public void setSlackId(String slackId) {
+        this.slackId = slackId;
+    }
 
     public String getStartAtCompany() {
         return startAtCompany;
