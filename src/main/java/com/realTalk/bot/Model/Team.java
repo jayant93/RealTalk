@@ -12,7 +12,7 @@ public class Team {
     private Long id;
 
 
-    @OneToOne(fetch=FetchType.EAGER, optional = false)
+    @OneToOne(fetch=FetchType.EAGER, optional = true)
     //@JoinColumn(name="teamMemberEmployee",referencedColumnName = "id",nullable = true)
     private CompanyEmployeeDetails teamMemberEmployee;
 
@@ -22,7 +22,7 @@ public class Team {
     @ManyToOne
     private Company company;
 
-    @OneToOne(fetch=FetchType.EAGER, optional = false)
+    @OneToOne(fetch=FetchType.EAGER, optional = true)
   //  @JoinColumn(name="teamHead",referencedColumnName = "id",nullable = true)
     private CompanyEmployeeDetails teamHead;
 

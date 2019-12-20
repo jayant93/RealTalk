@@ -2,15 +2,13 @@ package com.realTalk.bot.Service;
 
 import com.realTalk.bot.Model.*;
 import com.realTalk.bot.Repositories.*;
-
-import org.hibernate.boot.jaxb.hbm.spi.Adapter4;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.util.DirectFieldAccessFallbackBeanWrapper;
-import org.springframework.hateoas.mediatype.hal.HalConfiguration;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
-import java.util.stream.Stream;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+
 
 /*
 for saving user info provided while
@@ -38,12 +36,15 @@ public class UserInfoManipulationService {
     @Autowired
     ChannelInfoRepo channelInfoRepo;
 
+    @Autowired
+    TeamRepo teamRepo;
+
 
     /*
     This method will be used to saved OnBoarding information
     About the user Also saving Answers to particular questions
      */
-    public void saveUserQueryInfoToDB(LinkedHashMap answersList, Long invalidCount) throws IllegalAccessException {
+    public void saveUserQueryInfoToDB(LinkedHashMap answersList, Long invalidCount, List<String> TeamEmails, String UserSlackId) throws IllegalAccessException {
 
         try {
             Answers answers = null;
@@ -63,13 +64,17 @@ public class UserInfoManipulationService {
             CompanyEmployeeDetails employeeDetails = new CompanyEmployeeDetails();
 
             int EmployeeEmailIndex = getAnswerIndex(QuestionList, "your Email");
+            int ManagerEmailIndex = getAnswerIndex(QuestionList, "Managers email address");
 
             employeeDetails.setCompany(companyDetails);
+            employeeDetails.setManager(AnswerList.get(getAnswerIndex(QuestionList, "you a Manager")));
             employeeDetails.setEmail(AnswerList.get(EmployeeEmailIndex).substring(AnswerList.get(EmployeeEmailIndex).indexOf("|") + 1, AnswerList.get(EmployeeEmailIndex).indexOf(">")));
             employeeDetails.setLocation(AnswerList.get(getAnswerIndex(QuestionList, "city are you located")) + "," + AnswerList.get(getAnswerIndex(QuestionList, "country are you located")));
             employeeDetails.setNickname(AnswerList.get(getAnswerIndex(QuestionList, "name you would like me to call you")));
             employeeDetails.setStartDateAtCompany(AnswerList.get(getAnswerIndex(QuestionList, "start at your company")));
+            employeeDetails.setFullName(AnswerList.get(getAnswerIndex(QuestionList, "Full Name")));
             employeeDetails.setCompany(companyDetails);
+            employeeDetails.setSlackId(UserSlackId);
 
 
             EmployeePosition position = new EmployeePosition();
@@ -78,7 +83,19 @@ public class UserInfoManipulationService {
 
             employeeDetails.setPosition(position);
 
-            companyEmployeeDetailsRepo.save(employeeDetails);
+            employeeDetails = companyEmployeeDetailsRepo.save(employeeDetails);
+
+            Team teamDetails = new Team();
+            teamDetails.setName(AnswerList.get(getAnswerIndex(QuestionList, "your Team Name")));
+
+            if (AnswerList.get(getAnswerIndex(QuestionList, "team that directly reports to you")).equalsIgnoreCase("yes"))
+                teamDetails.setTeamHead(employeeDetails);
+            else
+                teamDetails.setTeamMemberEmployee(employeeDetails);
+
+            teamDetails.setCompany(companyDetails);
+            teamDetails.setStartDate(AnswerList.get(getAnswerIndex(QuestionList, "join your Team")));
+            teamRepo.save(teamDetails);
 
             //      Team teamDetails = new Team();
 
@@ -86,18 +103,18 @@ public class UserInfoManipulationService {
             for (int i = 0; i < answersList.size(); i++) {
                 answers = new Answers();
                 answers.setQuestion(QuestionList.get(i));
-                if (i == EmployeeEmailIndex) {
+                if (i == EmployeeEmailIndex || i == ManagerEmailIndex) {
                     answers.setAnswers(AnswerList.get(i).substring(AnswerList.get(i).indexOf("|") + 1, AnswerList.get(i).indexOf(">")));
                 } else {
                     answers.setAnswers(AnswerList.get(i));
                 }
-                answers.setGivenBy(AnswerList.get(0));
+                answers.setEmployee(employeeDetails);
                 DbAnswersList.add(answers);
             }
 
             answersRepo.saveAll(DbAnswersList);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -106,33 +123,36 @@ public class UserInfoManipulationService {
     }
 
 
-    public static int getAnswerIndex(ArrayList<Questions> questions,String QuestionStr){
+    public static int getAnswerIndex(ArrayList<Questions> questions, String QuestionStr) {
 
-        int result=0;
+        int result = 0;
 
-        for(int i=0;i<questions.size();i++){
-            if(questions.get(i).getQuestion().contains(QuestionStr)){
-                result =  i;
-            }
-            else
+        for (int i = 0; i < questions.size(); i++) {
+            if (questions.get(i).getQuestion().contains(QuestionStr)) {
+                result = i;
+            } else
                 continue;
         }
         return result;
     }
 
 
-    public void saveChannelInfo(String channelId,String UserSlackId){
+    public void saveChannelInfo(String channelId, String UserSlackId) {
 
         ChannelInfo channelInfo = new ChannelInfo();
-        channelInfo.setChannelId(channelId);
-        channelInfo.setUserSlackId(UserSlackId);
-        channelInfo.setDailyPulseCount(0);
+        int channelcount = channelInfoRepo.getChannelCount(channelId);
+        if (channelcount == 0) {
+            channelInfo.setChannelId(channelId);
+            channelInfo.setUserSlackId(UserSlackId);
+            channelInfo.setDailyPulseCount(0);
+            channelInfoRepo.save(channelInfo);
+        } else {
+            //do nothing
+        }
 
-
-        channelInfoRepo.save(channelInfo);
     }
 
-    public List<ChannelInfo> getChannels(){
+    public List<ChannelInfo> getChannels() {
         List<ChannelInfo> channelInfoList = channelInfoRepo.findAll();
         return channelInfoList;
     }

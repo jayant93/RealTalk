@@ -23,19 +23,33 @@ public class Answers {
 
     private String ScalePoint;
 
-    private String givenBy;
+    @ManyToOne
+    private CompanyEmployeeDetails employee;
 
     private Long NumberOfIncorrectformats;
+
+    public LocalDateTime getAnswerGivenAt() {
+        return answerGivenAt;
+    }
 
     @ManyToOne
     private Questions question;
 
-    public String getGivenBy() {
-        return givenBy;
+    public Long getId() {
+        return id;
     }
 
-    public void setGivenBy(String givenBy) {
-        this.givenBy = givenBy;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+
+    public CompanyEmployeeDetails getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(CompanyEmployeeDetails employee) {
+        this.employee = employee;
     }
 
     public Long getNumberOfIncorrectformats() {
@@ -70,4 +84,6 @@ public class Answers {
     public void setQuestion(Questions question) {
         this.question = question;
     }
+
+
 }

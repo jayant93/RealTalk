@@ -1,6 +1,7 @@
 package com.realTalk.bot.Model;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Entity
@@ -24,14 +25,11 @@ public class CompanyEmployeeDetails {
     @Column(name="email")
     private String Email;
 
-    @Column(name="first_name")
-    private String FirstName;
+    @Column(name="full_name")
+    private String fullName;
 
-    @Column(name="last_name")
-    private String LastName;
-
-    @Column(name="is_manager")
-    private boolean isManager;
+    @OneToMany(mappedBy = "employee")
+    List<Answers> answers;
 
 
     @ManyToOne
@@ -52,6 +50,9 @@ public class CompanyEmployeeDetails {
     @Column(name="start_date_at_company")
     private String startDateAtCompany;
 
+    @Column(name="Manager")
+    private String Manager;
+
     @Column(name="location")
     private String Location;
 
@@ -65,6 +66,14 @@ public class CompanyEmployeeDetails {
 
     public String getNickname() {
         return nickname;
+    }
+
+    public String getManager() {
+        return Manager;
+    }
+
+    public void setManager(String manager) {
+        Manager = manager;
     }
 
     public void setNickname(String nickname) {
@@ -87,29 +96,14 @@ public class CompanyEmployeeDetails {
         Email = email;
     }
 
-    public String getFirstName() {
-        return FirstName;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setFirstName(String firstName) {
-        FirstName = firstName;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
-    public String getLastName() {
-        return LastName;
-    }
-
-    public void setLastName(String lastName) {
-        LastName = lastName;
-    }
-
-    public boolean isManager() {
-        return isManager;
-    }
-
-    public void setManager(boolean manager) {
-        isManager = manager;
-    }
 
     public Team getTeam() {
         return team;
@@ -119,6 +113,13 @@ public class CompanyEmployeeDetails {
         this.team = team;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public EmployeePosition getPosition() {
         return position;

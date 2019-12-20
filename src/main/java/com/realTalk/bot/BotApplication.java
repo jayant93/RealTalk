@@ -8,14 +8,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
-
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Timer;
+
 
 
 @EntityScan("com.realTalk.bot.Model")
@@ -132,7 +127,7 @@ public class BotApplication implements CommandLineRunner {
 
 
 		query = new Questions();
-		query.setQuestion("What is their email address?");
+		query.setQuestion("What is your Managers email address?");
 		query.setQuestionType("OnBoarding");
 		query.setValidationType("none");
 		query.setExtraCheck("none");
@@ -155,94 +150,101 @@ public class BotApplication implements CommandLineRunner {
 		questionsList.add(query);
 
 		query = new Questions();
-		query.setQuestion("Are you an Admin?");
-		query.setQuestionType("OnBoarding");
-		query.setValidationType("none");
-		query.setExtraCheck("IsAdminCheck");
-		questionsList.add(query);
-
-		query = new Questions();
-		query.setQuestion("Will you be an administrator of RealTalk? For more information about being an Admin click here [link].");
-		query.setQuestionType("OnBoarding");
-		query.setValidationType("none");
-		query.setExtraCheck("MailAdminForPermissionToBeAnAdmin");
-		questionsList.add(query);
-
-
-		query = new Questions();
-		query.setQuestion("Please verify some additional information to get your Company set up and can be used for benchmarking (your Company will always be anonymous).\n" +
-				" You can always update this information in The Hub.Type Okay to proceed Further.");
-		query.setQuestionType("OnBoarding");
-		query.setValidationType("none");
-		query.setExtraCheck("CompanyDetailInsertCheck");
-		questionsList.add(query);
-
-		query = new Questions();
-		query.setQuestion("What's your Company's name?");
+		query.setQuestion("Are you a Manager?(yes/no)");
 		query.setQuestionType("OnBoarding");
 		query.setValidationType("none");
 		query.setExtraCheck("none");
 		questionsList.add(query);
 
-		query = new Questions();
-		query.setQuestion("What industry is your company in?");
-		query.setQuestionType("OnBoarding");
-		query.setValidationType("none");
-		query.setExtraCheck("none");
-		questionsList.add(query);
-
-
-		query = new Questions();
-		query.setQuestion("How many employees does it have? (<25, 25-50, 51-100, 101-250, 250-500, 500+)");
-		query.setQuestionType("OnBoarding");
-		query.setValidationType("none");
-		query.setExtraCheck("none");
-		questionsList.add(query);
-
-
-
-		query = new Questions();
-		query.setQuestion("Approximately, what percentage of your workforce is remote?");
-		query.setQuestionType("OnBoarding");
-		query.setValidationType("none");
-		query.setExtraCheck("none");
-		questionsList.add(query);
-
-		query = new Questions();
-		query.setQuestion("What is your current average employee tenure?");
-		query.setQuestionType("OnBoarding");
-		query.setValidationType("none");
-		query.setExtraCheck("none");
-		questionsList.add(query);
-
-		query = new Questions();
-		query.setQuestion("What is your annual revenue? (<$1M, $1-10M, $10-25M, 25-50M, 50M-100M, 100M+)");
-		query.setQuestionType("OnBoarding");
-		query.setValidationType("none");
-		query.setExtraCheck("none");
-		questionsList.add(query);
-
-		query = new Questions();
-		query.setQuestion("Please enter the email addresses of company leaders that should have access to The Hub's Insights (CXOs, Directors/VPs, HR, etc.)\" (Type \"Done\" when you're finished)");
-		query.setQuestionType("OnBoarding");
-		query.setValidationType("none");
-		query.setExtraCheck("CollectCompanyLeadersEmail");
-		questionsList.add(query);
-
-		query = new Questions();
-		query.setQuestion("Please enter the email addresses of other employees that might be Admins for RealTalk.");
-		query.setQuestionType("OnBoarding");
-		query.setValidationType("none");
-		query.setExtraCheck("CollectAdminsEmail");
-		questionsList.add(query);
-
-		query = new Questions();
-		query.setQuestion("What is the name the Division in the company you work for? (e.g. Finance, Operations, Product Management, Design, Operations, Support, HR, Sales, Marketing, Data Science, Customer Success, Professional Services, Other)");
-		query.setQuestionType("OnBoarding");
-		query.setValidationType("none");
-		query.setExtraCheck("none");
-		questionsList.add(query);
-
+//		query = new Questions();
+//		query.setQuestion("Are you an Admin?");
+//		query.setQuestionType("OnBoarding");
+//		query.setValidationType("none");
+//		query.setExtraCheck("IsAdminCheck");
+//		questionsList.add(query);
+//
+//		query = new Questions();
+//		query.setQuestion("Will you be an administrator of RealTalk? For more information about being an Admin click here [link].");
+//		query.setQuestionType("OnBoarding");
+//		query.setValidationType("none");
+//		query.setExtraCheck("MailAdminForPermissionToBeAnAdmin");
+//		questionsList.add(query);
+//
+//
+//		query = new Questions();
+//		query.setQuestion("Please verify some additional information to get your Company set up and can be used for benchmarking (your Company will always be anonymous).\n" +
+//				" You can always update this information in The Hub.Type Okay to proceed Further.");
+//		query.setQuestionType("OnBoarding");
+//		query.setValidationType("none");
+//		query.setExtraCheck("CompanyDetailInsertCheck");
+//		questionsList.add(query);
+//
+//		query = new Questions();
+//		query.setQuestion("What's your Company's name?");
+//		query.setQuestionType("OnBoarding");
+//		query.setValidationType("none");
+//		query.setExtraCheck("none");
+//		questionsList.add(query);
+//
+//		query = new Questions();
+//		query.setQuestion("What industry is your company in?");
+//		query.setQuestionType("OnBoarding");
+//		query.setValidationType("none");
+//		query.setExtraCheck("none");
+//		questionsList.add(query);
+//
+//
+//		query = new Questions();
+//		query.setQuestion("How many employees does it have? (<25, 25-50, 51-100, 101-250, 250-500, 500+)");
+//		query.setQuestionType("OnBoarding");
+//		query.setValidationType("none");
+//		query.setExtraCheck("none");
+//		questionsList.add(query);
+//
+//
+//
+//		query = new Questions();
+//		query.setQuestion("Approximately, what percentage of your workforce is remote?");
+//		query.setQuestionType("OnBoarding");
+//		query.setValidationType("none");
+//		query.setExtraCheck("none");
+//		questionsList.add(query);
+//
+//		query = new Questions();
+//		query.setQuestion("What is your current average employee tenure?");
+//		query.setQuestionType("OnBoarding");
+//		query.setValidationType("none");
+//		query.setExtraCheck("none");
+//		questionsList.add(query);
+//
+//		query = new Questions();
+//		query.setQuestion("What is your annual revenue? (<$1M, $1-10M, $10-25M, 25-50M, 50M-100M, 100M+)");
+//		query.setQuestionType("OnBoarding");
+//		query.setValidationType("none");
+//		query.setExtraCheck("none");
+//		questionsList.add(query);
+//
+//		query = new Questions();
+//		query.setQuestion("Please enter the email addresses of company leaders that should have access to The Hub's Insights (CXOs, Directors/VPs, HR, etc.)\" (Type \"Done\" when you're finished)");
+//		query.setQuestionType("OnBoarding");
+//		query.setValidationType("none");
+//		query.setExtraCheck("CollectCompanyLeadersEmail");
+//		questionsList.add(query);
+//
+//		query = new Questions();
+//		query.setQuestion("Please enter the email addresses of other employees that might be Admins for RealTalk.");
+//		query.setQuestionType("OnBoarding");
+//		query.setValidationType("none");
+//		query.setExtraCheck("CollectAdminsEmail");
+//		questionsList.add(query);
+//
+//		query = new Questions();
+//		query.setQuestion("What is the name the Division in the company you work for? (e.g. Finance, Operations, Product Management, Design, Operations, Support, HR, Sales, Marketing, Data Science, Customer Success, Professional Services, Other)");
+//		query.setQuestionType("OnBoarding");
+//		query.setValidationType("none");
+//		query.setExtraCheck("none");
+//		questionsList.add(query);
+//
 
 
 		query = new Questions();
