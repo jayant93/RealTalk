@@ -16,6 +16,9 @@ public class CompanyEmployeeDetails {
     @Column(name="slack_id")
     private String SlackId;
 
+    @Column(name="channel_Id")
+    private String channelId;
+
     @Column(name = "nickname")
     private String nickname;
 
@@ -40,6 +43,14 @@ public class CompanyEmployeeDetails {
 //    //@JoinColumn(name="parentEmployee", referencedColumnName="id", nullable = true)
 //    private CompanyEmployeeDetails parentEmployee;
 //
+
+    public String getChannelId() {
+        return channelId;
+    }
+
+    public void setChannelId(String channelId) {
+        this.channelId = channelId;
+    }
 
     @OneToOne
     private EmployeePosition position;
@@ -152,4 +163,7 @@ public class CompanyEmployeeDetails {
     public void setLocation(String location) {
         Location = location;
     }
+
+
+
 }

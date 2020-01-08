@@ -11,5 +11,7 @@ public interface ChannelInfoRepo extends JpaRepository<ChannelInfo,Long> {
     @Query(value = "select count(*) from channel_info where channel_id = :channelId",nativeQuery = true)
     int getChannelCount(@Param("channelId") String channelId);
 
+    ChannelInfo findByChannelId(String channelId);
+
 
 }

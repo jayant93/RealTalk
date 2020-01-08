@@ -1,7 +1,7 @@
 package com.realTalk.bot.Model;
 
 import javax.persistence.*;
-import java.util.List;
+
 
 @Entity
 public class Questions {
@@ -10,6 +10,7 @@ public class Questions {
     @GeneratedValue
     private Long id;
 
+    @Column(length = 1000)
     private String Question;
 
     private String QuestionType;

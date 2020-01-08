@@ -79,14 +79,14 @@ public class BotApplication implements CommandLineRunner {
 		query.setQuestion("What month did you start at your company (MM/DD/YY) ?");
 		query.setQuestionType("OnBoarding");
 		query.setValidationType("DateValidation");
-		query.setExtraCheck("none");
+		query.setExtraCheck("startAtCompanyDate");
 		questionsList.add(query);
 
 		query = new Questions();
 		query.setQuestion("When did you join your Team? (Please answer in MM/DD/YYYY form)");
 		query.setQuestionType("OnBoarding");
 		query.setValidationType("DateValidation");
-		query.setExtraCheck("none");
+		query.setExtraCheck("startAtTeamDate");
 		questionsList.add(query);
 
 		query = new Questions();
@@ -247,15 +247,16 @@ public class BotApplication implements CommandLineRunner {
 //
 
 
-		query = new Questions();
-		query.setQuestion("Congratulations on getting set up! You can always edit this information by typing \"/X\" or see other commands by typing \"/Y\"");
-		query.setQuestionType("OnBoarding");
-		query.setValidationType("none");
-		query.setExtraCheck("OnBoardingDone");
-		questionsList.add(query);
+//		query = new Questions();
+//		query.setQuestion("Congratulations on getting set up! You can always edit this information by typing \"/X\" or see other commands by typing \"/Y\"");
+//		query.setQuestionType("OnBoarding");
+//		query.setValidationType("none");
+//		query.setExtraCheck("OnBoardingDone");
+//		questionsList.add(query);
 
 		query = new Questions();
-		query.setQuestion("Let's try it out [Employee First Name]! Remember, all answers are {bolded: anonymous} and \n on a scale of 1 to 5. 1=Strongly Disagree, 2=Disagree, 3=Neutral, 4=Agree, 5=Strongly Agree." +
+		query.setQuestion("Congratulations on getting set up! \n Let's try it out ! Remember, all answers are {bolded: anonymous} and \n" +
+				" on a scale of 1 to 5. 1=Strongly Disagree, 2=Disagree, 3=Neutral, 4=Agree, 5=Strongly Agree." +
 				"\nI would recommend my friends to work at my company?");
 		query.setQuestionType("OnBoarding");
 		query.setValidationType("none");

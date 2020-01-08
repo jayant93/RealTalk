@@ -26,7 +26,7 @@ public class Answers {
     @ManyToOne
     private CompanyEmployeeDetails employee;
 
-    private Long NumberOfIncorrectformats;
+    private int NumberOfIncorrectformats;
 
     public LocalDateTime getAnswerGivenAt() {
         return answerGivenAt;
@@ -52,11 +52,11 @@ public class Answers {
         this.employee = employee;
     }
 
-    public Long getNumberOfIncorrectformats() {
+    public int getNumberOfIncorrectformats() {
         return NumberOfIncorrectformats;
     }
 
-    public void setNumberOfIncorrectformats(Long numberOfIncorrectformats) {
+    public void setNumberOfIncorrectformats(int numberOfIncorrectformats) {
         NumberOfIncorrectformats = numberOfIncorrectformats;
     }
 

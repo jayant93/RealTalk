@@ -2,17 +2,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	<packaging>jar</packaging>
+	<groupId>com.realTalk</groupId>
+	<artifactId>bot</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<description>Demo project for Spring Boot</description>
+
+
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.2.1.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.realTalk</groupId>
-	<artifactId>bot</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>bot</name>
-	<description>Demo project for Spring Boot</description>
+
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -37,7 +39,11 @@
 			<version>3.9</version>
 		</dependency>
 
-
+		<dependency>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>2.3.2</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-rest</artifactId>
@@ -49,14 +55,18 @@
 <!--		<dependency>-->
 <!--			<groupId>io.springfox</groupId>-->
 <!--			<artifactId>springfox-swagger2</artifactId>-->
-<!--			<version>2.6.1</version>-->
-<!--			<scope>compile</scope>-->
+<!--			<version>2.9.2</version>-->
 <!--		</dependency>-->
+<!--		&lt;!&ndash; https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui &ndash;&gt;-->
 <!--		<dependency>-->
 <!--			<groupId>io.springfox</groupId>-->
 <!--			<artifactId>springfox-swagger-ui</artifactId>-->
-<!--			<version>2.6.1</version>-->
-<!--			<scope>compile</scope>-->
+<!--			<version>2.9.2</version>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.plugin</groupId>-->
+<!--			<artifactId>spring-plugin-core</artifactId>-->
+<!--			<version>1.2.0.RELEASE</version>-->
 <!--		</dependency>-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -97,18 +107,9 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>com.heroku.sdk</groupId>
-				<artifactId>heroku-maven-plugin</artifactId>
-				<version>2.0.13</version>
-				<configuration>
-					<appName>realtalkdemo</appName>
-
-					<processTypes>
-						<web>java -Dserver.port=$PORT $JAVA_OPTS -cp target/classes:target/dependency/* com.realTalk.bot.BotApplication</web>
-					</processTypes>
-				</configuration>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>
-
 </project>

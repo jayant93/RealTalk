@@ -1,7 +1,5 @@
 package com.realTalk.bot.BotController;
 
-
-import com.realTalk.bot.Model.CompanyEmployeeDetails;
 import com.realTalk.bot.Service.FileDownloadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -11,11 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.*;
-import java.util.logging.Logger;
-
-import org.springframework.core.io.Resource;
 
 import javax.servlet.http.HttpServletRequest;
+
 
 @RestController
 @RequestMapping(path = "/File")
@@ -28,7 +24,7 @@ public class FileController {
     @GetMapping(path="/EmployeeDetails")
     public ResponseEntity getEmployeeExcel(HttpServletRequest request) throws IOException {
 
-        File file = fileDownloadService.generateEmployeeReport();
+        File file = fileDownloadService.generateWorkspaceMemberDetails();
 
         InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
 

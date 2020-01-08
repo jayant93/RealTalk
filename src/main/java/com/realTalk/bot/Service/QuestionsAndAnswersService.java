@@ -1,8 +1,11 @@
 package com.realTalk.bot.Service;
 
 import com.realTalk.bot.Model.Answers;
+import com.realTalk.bot.Model.ChannelInfo;
 import com.realTalk.bot.Model.Questions;
 import com.realTalk.bot.Repositories.AnswersRepository;
+import com.realTalk.bot.Repositories.ChannelInfoRepo;
+import com.realTalk.bot.Repositories.CompanyEmployeeDetailsRepo;
 import com.realTalk.bot.Repositories.QuestionsRepository;
 import com.realTalk.bot.helpers.Request.QuestionRequest;
 import com.realTalk.bot.helpers.Response.CustomResponse;
@@ -10,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +24,14 @@ public class QuestionsAndAnswersService {
 
     @Autowired
     AnswersRepository AnswersRepo;
+
+    @Autowired
+    CompanyEmployeeDetailsRepo employeeDetailsRepo;
+
+    @Autowired
+    ChannelInfoRepo channelInfoRepo;
+
+
 
     //Lets work on adding some methods to Add Questions and Answers
     public ResponseEntity<CustomResponse> addQuestionAndAnswers(List<QuestionRequest> request){
@@ -69,15 +79,38 @@ public class QuestionsAndAnswersService {
         return QRepo.findDailyPulseQuestion();
     }
 
-    public void saveDailyPulseAnswers(Questions activePulseQuestion, List<String> dailyPulseAnswers) {
+    /*
+    Saving answers to Daily pulse Questions
+     */
+    public void saveDailyPulseAnswers(Questions activePulseQuestion, List<String> dailyPulseAnswers,String userId,String channelId) {
 
         Answers answer = new Answers();
 
             answer.setAnswers(dailyPulseAnswers.get(1));
             answer.setQuestion(activePulseQuestion);
+            answer.setEmployee(employeeDetailsRepo.findBySlackIdAndChannelId(userId,channelId));
             answer.setScalePoint(dailyPulseAnswers.get(0));
+
 
         AnswersRepo.save(answer);
 
     }
+
+    public void updateChannelPulseCount(String channelId){
+
+        ChannelInfo info = null;
+
+        info = channelInfoRepo.findByChannelId(channelId);
+
+        int count = info.getDailyPulseCount();
+
+        count++;
+
+        info.setDailyPulseCount(count);
+        channelInfoRepo.save(info);
+
+
+    }
+
+
 }

@@ -44,7 +44,7 @@ public class UserInfoManipulationService {
     This method will be used to saved OnBoarding information
     About the user Also saving Answers to particular questions
      */
-    public void saveUserQueryInfoToDB(LinkedHashMap answersList, Long invalidCount, List<String> TeamEmails, String UserSlackId) throws IllegalAccessException {
+    public void saveUserQueryInfoToDB(LinkedHashMap answersList, Long invalidCount, List<String> TeamEmails, String UserSlackId,String ChannelId,int CompanyDateInvalidCount,int TeamDateInvalidCount) throws IllegalAccessException {
 
         try {
             Answers answers = null;
@@ -75,6 +75,7 @@ public class UserInfoManipulationService {
             employeeDetails.setFullName(AnswerList.get(getAnswerIndex(QuestionList, "Full Name")));
             employeeDetails.setCompany(companyDetails);
             employeeDetails.setSlackId(UserSlackId);
+            employeeDetails.setChannelId(ChannelId);
 
 
             EmployeePosition position = new EmployeePosition();
@@ -105,9 +106,19 @@ public class UserInfoManipulationService {
                 answers.setQuestion(QuestionList.get(i));
                 if (i == EmployeeEmailIndex || i == ManagerEmailIndex) {
                     answers.setAnswers(AnswerList.get(i).substring(AnswerList.get(i).indexOf("|") + 1, AnswerList.get(i).indexOf(">")));
-                } else {
-                    answers.setAnswers(AnswerList.get(i));
-                }
+                }else
+                        if( i == getAnswerIndex(QuestionList, "start at your company")){
+                            answers.setAnswers(AnswerList.get(getAnswerIndex(QuestionList, "start at your company")));
+                            answers.setNumberOfIncorrectformats(CompanyDateInvalidCount);
+                        }
+                        else
+                            if( i == getAnswerIndex(QuestionList, "join your Team")){
+                                answers.setAnswers(AnswerList.get(getAnswerIndex(QuestionList, "join your Team")));
+                                answers.setNumberOfIncorrectformats(TeamDateInvalidCount);
+                            }
+                        else {
+                            answers.setAnswers(AnswerList.get(i));
+                        }
                 answers.setEmployee(employeeDetails);
                 DbAnswersList.add(answers);
             }
@@ -118,7 +129,6 @@ public class UserInfoManipulationService {
             e.printStackTrace();
         }
 
-//        userQueryRepo.save(info);
 
     }
 

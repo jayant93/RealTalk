@@ -11,7 +11,7 @@ public class ChannelInfo {
     @GeneratedValue
     private Long id;
 
-    private String ChannelId;
+    private String channelId;
 
     private String UserSlackId;
 
@@ -34,11 +34,11 @@ public class ChannelInfo {
     }
 
     public String getChannelId() {
-        return ChannelId;
+        return channelId;
     }
 
-    public void setChannelId(String channelId) {
-        ChannelId = channelId;
+    public void setChannelId(String ChannelId) {
+         channelId = ChannelId;
     }
 
     public String getUserSlackId() {
