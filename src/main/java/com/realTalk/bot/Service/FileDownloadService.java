@@ -1,11 +1,7 @@
 package com.realTalk.bot.Service;
 
-import com.realTalk.bot.Model.Answers;
-import com.realTalk.bot.Model.CompanyEmployeeDetails;
-import com.realTalk.bot.Model.Member;
-import com.realTalk.bot.Repositories.AnswersRepository;
-import com.realTalk.bot.Repositories.CompanyEmployeeDetailsRepo;
-import com.realTalk.bot.Repositories.MemberRepository;
+import com.realTalk.bot.Model.*;
+import com.realTalk.bot.Repositories.*;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -24,73 +20,17 @@ public class FileDownloadService {
 
 
     @Autowired
-    CompanyEmployeeDetailsRepo companyEmployeeDetailsRepo;
-
-    @Autowired
     MemberRepository memberRepo;
 
     @Autowired
-    AnswersRepository answersRepo;
-
-
-    public File generateEmployeeReport() throws IOException {
-
-        List<CompanyEmployeeDetails> employeeList = companyEmployeeDetailsRepo.findAll();
-
-        HSSFWorkbook workbook = new HSSFWorkbook();
-        HSSFSheet spreadsheet = workbook.createSheet("employee details");
-
-
-        HSSFRow row = spreadsheet.createRow(1);
-        HSSFCell cell;
-        cell = row.createCell(1);
-        cell.setCellValue("ID");
-        cell = row.createCell(2);
-        cell.setCellValue("COMPANY NAME");
-        cell = row.createCell(3);
-        cell.setCellValue("EMPLOYEE_NAME");
-        cell = row.createCell(4);
-        cell.setCellValue("TITLE");
-        cell = row.createCell(5);
-        cell.setCellValue("START DATE AT COMPANY");
-        cell = row.createCell(6);
-        cell.setCellValue("LOCATION");
-
-
-        int j = 2;
-
-        for (int i = 0; i < employeeList.size(); i++) {
-            row = spreadsheet.createRow(j);
-            cell = row.createCell(1);
-            cell.setCellValue(employeeList.get(i).getId());
-            cell = row.createCell(2);
-            cell.setCellValue(employeeList.get(i).getCompany().getName());
-            cell = row.createCell(3);
-            cell.setCellValue(employeeList.get(i).getFullName());
-            cell = row.createCell(4);
-            cell.setCellValue(employeeList.get(i).getPosition().getTitle());
-            cell = row.createCell(5);
-            cell.setCellValue(employeeList.get(i).getStartDateAtCompany());
-            cell = row.createCell(6);
-            cell.setCellValue(employeeList.get(i).getLocation());
-            j++;
-        }
-
-        File file = new File("/home/RealTalkCompanyDetails.xlsx");
-
-        FileOutputStream out = new FileOutputStream(file);
-        workbook.write(out);
-        out.close();
-
-        System.out.println("exceldatabase.xlsx written successfully");
-
-        return file;
-    }
+    QuestionResponseRepository questionResponseRepo;
+    @Autowired
+    DailyPulseResponseRepository dailyPulseResponseRepository;
 
 
     public File generateQuestionReport() throws IOException {
 
-        List<Answers> AnswersList = answersRepo.findAll();
+        List<QuestionsResponses> AnswersList = questionResponseRepo.findAll();
 
         HSSFWorkbook workbook = new HSSFWorkbook();
         HSSFSheet spreadsheet = workbook.createSheet("Questions and Answers Details");
@@ -103,7 +43,7 @@ public class FileDownloadService {
         cell = row.createCell(2);
         cell.setCellValue("QUESTION");
         cell = row.createCell(3);
-        cell.setCellValue("ANSWERS");
+        cell.setCellValue("ANSWER");
         cell = row.createCell(4);
         cell.setCellValue("ANSWERS GIVEN BY");
         cell = row.createCell(5);
@@ -115,15 +55,15 @@ public class FileDownloadService {
         for (int i = 0; i < AnswersList.size(); i++) {
             row = spreadsheet.createRow(j);
             cell = row.createCell(1);
-            cell.setCellValue(AnswersList.get(i).getId());
+            cell.setCellValue(AnswersList.get(i).getResponseId());
             cell = row.createCell(2);
-            cell.setCellValue(AnswersList.get(i).getQuestion().getQuestion());
+            cell.setCellValue(AnswersList.get(i).getQuestion_text());
             cell = row.createCell(3);
-            cell.setCellValue(AnswersList.get(i).getAnswers());
+            cell.setCellValue(AnswersList.get(i).getAnswer());
             cell = row.createCell(4);
-            cell.setCellValue(AnswersList.get(i).getEmployee().getEmail());
+            cell.setCellValue(memberRepo.findById(AnswersList.get(i).getUser()).get().getEmail());
             cell = row.createCell(5);
-            cell.setCellValue(AnswersList.get(i).getAnswerGivenAt());
+            cell.setCellValue(AnswersList.get(i).getAnsweredAt());
             j++;
         }
 
@@ -140,8 +80,65 @@ public class FileDownloadService {
 
     }
 
-    public File generateWorkspaceMemberDetails() throws IOException {
 
+    public File generateDailyPulseQuestionReport() throws IOException {
+
+        List<DailyPulseResponse> AnswersList = dailyPulseResponseRepository.findAll();
+
+        HSSFWorkbook workbook = new HSSFWorkbook();
+        HSSFSheet spreadsheet = workbook.createSheet("Daily Pulse Response Details");
+
+
+        HSSFRow row = spreadsheet.createRow(1);
+        HSSFCell cell;
+        cell = row.createCell(1);
+        cell.setCellValue("ID");
+        cell = row.createCell(2);
+        cell.setCellValue("QUESTION");
+        cell = row.createCell(3);
+        cell.setCellValue("NUMERIC RESPONSE");
+        cell = row.createCell(4);
+        cell.setCellValue("TEXT RESPONSE");
+        cell = row.createCell(5);
+        cell.setCellValue("ANSWERS GIVEN BY");
+        cell = row.createCell(6);
+        cell.setCellValue("ANSWERS GIVEN AT");
+
+
+        int j = 2;
+
+        for (int i = 0; i < AnswersList.size(); i++) {
+            row = spreadsheet.createRow(j);
+            cell = row.createCell(1);
+            cell.setCellValue(AnswersList.get(i).getId());
+            cell = row.createCell(2);
+            cell.setCellValue(AnswersList.get(i).getQuestion());
+            cell = row.createCell(3);
+            cell.setCellValue(AnswersList.get(i).getNumericResponse());
+            cell = row.createCell(4);
+            cell.setCellValue(AnswersList.get(i).getTextResponse());
+            cell = row.createCell(5);
+            cell.setCellValue(memberRepo.findById(AnswersList.get(i).getUserId()).get().getEmail());
+            cell = row.createCell(6);
+            cell.setCellValue(AnswersList.get(i).getAnsweredAt());
+            j++;
+        }
+
+        File file = new File("/home/RealTalkDailyPulseResponses.xlsx");
+
+        FileOutputStream out = new FileOutputStream(file);
+        workbook.write(out);
+        out.close();
+
+        System.out.println("exceldatabase.xlsx written successfully");
+
+        return file;
+
+
+    }
+
+
+    public File generateWorkspaceMemberDetails() throws IOException {
 
 
         List<Member> memberList = memberRepo.findAll();
@@ -175,7 +172,6 @@ public class FileDownloadService {
         cell.setCellValue("IS_OWNER");
         cell = row.createCell(11);
         cell.setCellValue("IS_BOT");
-
 
 
         int j = 2;

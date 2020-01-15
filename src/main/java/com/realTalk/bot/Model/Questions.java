@@ -15,15 +15,8 @@ public class Questions {
 
     private String QuestionType;
 
-    private String ValidationType;
-
-    @ManyToOne
-    private Topics topic;
 
     private String extraCheck;
-
-    @ManyToOne
-    private SubTopics subTopics;
 
     private boolean inUse;
 
@@ -89,29 +82,7 @@ public class Questions {
         QuestionType = questionType;
     }
 
-    public String getValidationType() {
-        return ValidationType;
-    }
 
-    public void setValidationType(String validationType) {
-        ValidationType = validationType;
-    }
-
-    public Topics getTopic() {
-        return topic;
-    }
-
-    public void setTopic(Topics topic) {
-        this.topic = topic;
-    }
-
-    public SubTopics getSubTopics() {
-        return subTopics;
-    }
-
-    public void setSubTopics(SubTopics subTopics) {
-        this.subTopics = subTopics;
-    }
 
     public boolean isInUse() {
         return inUse;

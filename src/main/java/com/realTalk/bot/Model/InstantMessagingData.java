@@ -6,14 +6,16 @@ import javax.persistence.Id;
 @Entity
 public class InstantMessagingData {
 
-
-    @Id
     private String id;
+
     private float created;
     private boolean is_archived;
     private boolean is_im;
     private boolean is_org_shared;
+
+    @Id
     private String user;
+
     private boolean has_pins;
     private String last_read;
     private boolean is_open;
@@ -21,7 +23,6 @@ public class InstantMessagingData {
 
 
     // Getter Methods
-
     public String getId() {
         return id;
     }

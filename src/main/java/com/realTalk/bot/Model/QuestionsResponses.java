@@ -16,7 +16,29 @@ public class QuestionsResponses {
     @ManyToOne
     private Questions question;
 
+    private String question_text;
+
     private String answer;
+
+    private String numberResponse;
+
+    private String QuestionType;
+
+    public String getQuestionType() {
+        return QuestionType;
+    }
+
+    public void setQuestionType(String questionType) {
+        QuestionType = questionType;
+    }
+
+    public String getNumberResponse() {
+        return numberResponse;
+    }
+
+    public void setNumberResponse(String numberResponse) {
+        this.numberResponse = numberResponse;
+    }
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy hh:mm:ss")
     private LocalDateTime answeredAt = LocalDateTime.now();
@@ -24,15 +46,23 @@ public class QuestionsResponses {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy hh:mm:ss")
     private LocalDateTime questionSentAt = LocalDateTime.now();
 
-    @ManyToOne
-    private Company company;
+    private String user;
 
-    @ManyToOne
-    private CompanyEmployeeDetails user;
+    public String getQuestion_text() {
+        return question_text;
+    }
 
-    private long numericResponse;
+    public void setQuestion_text(String question_text) {
+        this.question_text = question_text;
+    }
 
-    private String freeFormResponse;
+    public long getResponseId() {
+        return responseId;
+    }
+
+    public void setResponseId(long responseId) {
+        this.responseId = responseId;
+    }
 
     public Questions getQuestion() {
         return question;
@@ -66,35 +96,11 @@ public class QuestionsResponses {
         this.questionSentAt = questionSentAt;
     }
 
-    public Company getCompany() {
-        return company;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
-    }
-
-    public CompanyEmployeeDetails getUser() {
+    public String getUser() {
         return user;
     }
 
-    public void setUser(CompanyEmployeeDetails user) {
+    public void setUser(String user) {
         this.user = user;
-    }
-
-    public long getNumericResponse() {
-        return numericResponse;
-    }
-
-    public void setNumericResponse(long numericResponse) {
-        this.numericResponse = numericResponse;
-    }
-
-    public String getFreeFormResponse() {
-        return freeFormResponse;
-    }
-
-    public void setFreeFormResponse(String freeFormResponse) {
-        this.freeFormResponse = freeFormResponse;
     }
 }

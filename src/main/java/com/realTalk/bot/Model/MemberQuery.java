@@ -1,23 +1,40 @@
 package com.realTalk.bot.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 public class MemberQuery {
 
     @Id
+    @GeneratedValue
     private Long id;
 
     @OneToOne(fetch = FetchType.EAGER)
-    private Member member;
+    private InstantMessagingData member;
 
-    private Boolean OnBoardingStatus;
+    private String  OnBoardingStatus;
     private Integer OnBoardingQuestionCount;
-    private Boolean DailyPulseQuestionStatus;
+    private String  DailyPulseQuestionStatus;
     private Integer DailyPulseQuestionCount;
+    private Integer DailyDailyQuestionCount;
+
+    public Integer getDailyDailyQuestionCount() {
+        return DailyDailyQuestionCount;
+    }
+
+    public void setDailyDailyQuestionCount(Integer dailyDailyQuestionCount) {
+        DailyDailyQuestionCount = dailyDailyQuestionCount;
+    }
+
+    private String ValidationType;
+
+    public String getValidationType() {
+        return ValidationType;
+    }
+
+    public void setValidationType(String validationType) {
+        ValidationType = validationType;
+    }
 
     public Long getId() {
         return id;
@@ -27,19 +44,19 @@ public class MemberQuery {
         this.id = id;
     }
 
-    public Member getMember() {
+    public InstantMessagingData getMember() {
         return member;
     }
 
-    public void setMember(Member member) {
+    public void setMember(InstantMessagingData member) {
         this.member = member;
     }
 
-    public Boolean getOnBoardingStatus() {
+    public String getOnBoardingStatus() {
         return OnBoardingStatus;
     }
 
-    public void setOnBoardingStatus(Boolean onBoardingStatus) {
+    public void setOnBoardingStatus(String onBoardingStatus) {
         OnBoardingStatus = onBoardingStatus;
     }
 
@@ -51,11 +68,11 @@ public class MemberQuery {
         OnBoardingQuestionCount = onBoardingQuestionCount;
     }
 
-    public Boolean getDailyPulseQuestionStatus() {
+    public String getDailyPulseQuestionStatus() {
         return DailyPulseQuestionStatus;
     }
 
-    public void setDailyPulseQuestionStatus(Boolean dailyPulseQuestionStatus) {
+    public void setDailyPulseQuestionStatus(String dailyPulseQuestionStatus) {
         DailyPulseQuestionStatus = dailyPulseQuestionStatus;
     }
 

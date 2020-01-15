@@ -1,7 +1,7 @@
 package com.realTalk.bot.DTO;
 
 
-public class IMSDTO{
+public class IMSDTO {
     private String id;
     private float created;
     private boolean is_archived;

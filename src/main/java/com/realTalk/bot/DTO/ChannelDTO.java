@@ -26,7 +26,7 @@ public class ChannelDTO {
     private boolean is_mpim;
     private String last_read;
 
-    ArrayList<String> members ;
+    ArrayList<String> members;
 
     private float priority;
 

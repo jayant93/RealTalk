@@ -22,6 +22,7 @@ import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,7 +40,7 @@ public class CollectWorkspaceInfo {
     SlackWorkspaceInfoCollect service;
 
 
-    CollectWorkspaceInfo(Environment environment,SlackWorkspaceInfoCollect slackWorkspaceInfoCollect){
+    CollectWorkspaceInfo(Environment environment, SlackWorkspaceInfoCollect slackWorkspaceInfoCollect) {
         this.environment = environment;
         this.service = slackWorkspaceInfoCollect;
     }
@@ -49,7 +50,7 @@ public class CollectWorkspaceInfo {
     @GetMapping
     public ResponseEntity<List<ChannelDTO>> collectWorkspaceInfo() throws IOException {
 
-        final String uri = "https://slack.com/api/rtm.start?token="+environment.getProperty("slackBotToken")+"&simple_latest&no_unreads";
+        final String uri = "https://slack.com/api/rtm.start?token=" + environment.getProperty("slackBotToken") + "&simple_latest&no_unreads";
         List<ChannelDTO> channelList = new ArrayList<>();
         List<Member> membersList = new ArrayList<>();
         List<InstantMessagingData> imsList = new ArrayList<>();
@@ -74,8 +75,6 @@ public class CollectWorkspaceInfo {
             JsonNode ims = actualObj.get("ims");
 
 
-
-
             for (int i = 0; i < channels.size(); i++) {
                 ChannelDTO channel = new ChannelDTO();
                 byte[] bytes = channels.get(i).toString().getBytes();
@@ -91,25 +90,26 @@ public class CollectWorkspaceInfo {
                 membersList.add(member);
             }
 
-            for(int i=0;i< ims.size();i++){
+            for (int i = 0; i < ims.size(); i++) {
                 InstantMessagingData imsData = new InstantMessagingData();
                 byte[] bytes = ims.get(i).toString().getBytes();
-                imsData = mapper.readValue(bytes,InstantMessagingData.class);
+                imsData = mapper.readValue(bytes, InstantMessagingData.class);
                 imsList.add(imsData);
 
-             }
+            }
 
             System.out.println(result);
 
             log.info("Sending user information to Service for saving it to db");
-              service.saveUserInfo(membersList);
-              service.saveInstantMessageData(imsList);            //            service.saveChannelInfo(channelList);
-            service.saveWorkspaceInfo(channelList,membersList);
-        }catch(Exception e){
-            log.info("Error : "+e.getMessage());
+            service.saveUserInfo(membersList);
+            service.saveInstantMessageData(imsList);            //            service.saveChannelInfo(channelList);
+            service.saveWorkspaceInfo(channelList, membersList);
+        }
+        catch (Exception e) {
+            log.info("Error : " + e.getMessage());
             e.printStackTrace();
         }
-        return new ResponseEntity<List<ChannelDTO>>(channelList,HttpStatus.CREATED);
+        return new ResponseEntity<List<ChannelDTO>>(channelList, HttpStatus.CREATED);
     }
 
 

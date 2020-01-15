@@ -9,9 +9,10 @@ import java.util.List;
 
 public interface QuestionsRepository extends JpaRepository<Questions,Long> {
 
-    @Query("Select q from Questions q where QuestionType = 'Authentication' OR QuestionType = 'OnBoarding'")
+    @Query("Select q from Questions q where QuestionType = 'OnBoarding'")
     List<Questions> findOnBoardingQuestions();
 
-    @Query("Select q from Questions q where QuestionType = 'DailyPulseQuestion' ORDER BY q.QuestionOrder ASC")
+    @Query("Select q from Questions q where QuestionType = 'DailyPulseQuestion'")
     List<Questions> findDailyPulseQuestion();
+
 }
